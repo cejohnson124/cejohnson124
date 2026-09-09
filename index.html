@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Charlie Johnson</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f6f4ef;
+    --surface: #ffffff;
+    --ink: #1d2430;
+    --ink-soft: #333c49;
+    --muted: #6b7280;
+    --rule: #ddd7c8;
+    --accent: #7c2a3a;
+    --accent-soft: #f1e3e0;
+    --sidebar: #1d2430;
+    --sidebar-text: #e9e7e0;
+    --sidebar-muted: #9aa1ad;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    min-height: 100vh;
+  }
+
+  /* ---------- Sidebar ---------- */
+
+  .sidebar {
+    background: var(--sidebar);
+    color: var(--sidebar-text);
+    padding: 3rem 2.25rem;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .monogram {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    border: 1px solid rgba(233, 231, 224, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "IBM Plex Serif", serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.02em;
+    margin-bottom: 1.75rem;
+  }
+
+  .sidebar h1 {
+    font-family: "IBM Plex Serif", serif;
+    font-weight: 500;
+    font-size: 1.7rem;
+    line-height: 1.25;
+    margin: 0 0 0.4rem;
+  }
+
+  .sidebar .role {
+    color: var(--sidebar-muted);
+    font-size: 0.92rem;
+    line-height: 1.55;
+    margin: 0 0 1.75rem;
+    max-width: 20ch;
+  }
+
+  .sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    margin-bottom: auto;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(233, 231, 224, 0.15);
+  }
+
+  .sidebar nav a {
+    text-decoration: none;
+    color: var(--sidebar-muted);
+    font-size: 0.88rem;
+    padding: 0.6rem 0 0.1rem;
+    border-bottom: 2px solid transparent;
+    width: fit-content;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .sidebar nav a:hover,
+  .sidebar nav a:focus-visible {
+    color: var(--sidebar-text);
+    border-color: var(--accent);
+  }
+
+  .sidebar-contact {
+    padding-top: 1.75rem;
+    border-top: 1px solid rgba(233, 231, 224, 0.15);
+    font-size: 0.85rem;
+  }
+
+  .sidebar-contact .label {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.68rem;
+    color: var(--sidebar-muted);
+    margin-bottom: 0.35rem;
+  }
+
+  .sidebar-contact .row {
+    margin-bottom: 1rem;
+  }
+
+  .sidebar-contact a {
+    text-decoration: none;
+    color: var(--sidebar-text);
+    word-break: break-word;
+  }
+
+  .sidebar-contact a:hover { color: var(--accent); filter: brightness(1.4); }
+
+  /* ---------- Main content ---------- */
+
+  main {
+    padding: 4.5rem 4rem 5rem;
+    max-width: 760px;
+  }
+
+  .intro h2 {
+    font-family: "IBM Plex Serif", serif;
+    font-weight: 500;
+    font-size: 1.5rem;
+    margin: 0 0 1rem;
+  }
+
+  .intro p {
+    font-size: 1.02rem;
+    line-height: 1.75;
+    color: var(--ink-soft);
+    max-width: 68ch;
+    margin: 0 0 1.1rem;
+  }
+
+  .intro p:last-child { margin-bottom: 0; }
+
+  section.block {
+    margin-top: 3.5rem;
+  }
+
+  .section-label {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-weight: 600;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 1.6rem;
+  }
+
+  .entry {
+    margin-bottom: 1.9rem;
+  }
+
+  .entry:last-child { margin-bottom: 0; }
+
+  .entry-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .entry-title {
+    font-family: "IBM Plex Serif", serif;
+    font-size: 1.08rem;
+    font-weight: 500;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+
+  .entry-leader {
+    flex: 1;
+    border-bottom: 1px dotted var(--rule);
+    min-width: 20px;
+    transform: translateY(-4px);
+  }
+
+  .entry-date {
+    font-size: 0.85rem;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .entry-sub {
+    font-size: 0.92rem;
+    color: var(--accent);
+    margin-top: 0.2rem;
+    margin-bottom: 0.55rem;
+  }
+
+  .entry ul {
+    margin: 0;
+    padding-left: 1.1rem;
+    color: var(--ink-soft);
+  }
+
+  .entry li {
+    font-size: 0.94rem;
+    line-height: 1.6;
+    margin-bottom: 0.35rem;
+  }
+
+  .entry li:last-child { margin-bottom: 0; }
+
+  .entry-meta {
+    font-size: 0.88rem;
+    color: var(--muted);
+    margin-top: 0.35rem;
+  }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .value-card h3 {
+    font-family: "IBM Plex Serif", serif;
+    font-weight: 500;
+    font-size: 1rem;
+    margin: 0 0 0.4rem;
+    color: var(--ink);
+  }
+
+  .value-card p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .outside-list {
+    margin: 0;
+    padding-left: 1.1rem;
+    color: var(--ink-soft);
+  }
+
+  .outside-list li {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 0.4rem;
+  }
+
+  footer.contact {
+    margin-top: 4.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  footer.contact .cta h3 {
+    font-family: "IBM Plex Serif", serif;
+    font-weight: 500;
+    font-size: 1.3rem;
+    margin: 0 0 0.5rem;
+  }
+
+  footer.contact .cta p {
+    font-size: 0.92rem;
+    color: var(--muted);
+    margin: 0;
+    max-width: 40ch;
+  }
+
+  .contact-link {
+    display: inline-block;
+    margin-top: 0.9rem;
+    padding: 0.65rem 1.3rem;
+    background: var(--accent);
+    color: #fdf8f6;
+    text-decoration: none;
+    font-size: 0.9rem;
+    border-radius: 3px;
+    transition: filter 0.15s ease;
+  }
+
+  .contact-link:hover { filter: brightness(1.12); }
+
+  footer.contact .updated {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  /* ---------- Responsive ---------- */
+
+  @media (max-width: 860px) {
+    .layout { grid-template-columns: 1fr; }
+    .sidebar {
+      position: relative;
+      height: auto;
+      padding: 2.5rem 1.75rem;
+    }
+    .sidebar nav { flex-direction: row; flex-wrap: wrap; margin-bottom: 1.75rem; gap: 1.2rem; }
+    main { padding: 3rem 1.75rem 4rem; }
+    .values-grid { grid-template-columns: 1fr; }
+    .entry-head { gap: 0.3rem; }
+    .entry-leader { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="monogram">CJ</div>
+      <h1>Charlie Johnson</h1>
+      <p class="role">Business student &amp; real estate professional in training, Cincinnati, Ohio</p>
+
+      <nav>
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="sidebar-contact">
+        <div class="row">
+          <div class="label">Email</div>
+          <a href="mailto:cejohnson124@gmail.com">cejohnson124@gmail.com</a>
+        </div>
+        <div class="row">
+          <div class="label">Location</div>
+          <span>Cincinnati, Ohio</span>
+        </div>
+        <div class="row">
+          <div class="label">Elsewhere</div>
+          <a href="#" aria-label="LinkedIn">LinkedIn</a>
+        </div>
+      </div>
+    </aside>
+
+    <main>
+      <section class="intro" id="about">
+        <h2>About</h2>
+        <p>
+          I'm a business student at Xavier University, currently working toward a degree in Business
+          Management with an interest in real estate and project management. I like understanding how
+          things work end to end — whether that's a property closing, a client relationship, or a team
+          project — and I'd rather ask a few good questions than assume I already know the answer.
+        </p>
+        <p>
+          Outside of coursework, I've picked up experience across a title insurance office, a working
+          farm, and customer service — different environments, but the same habits carried through:
+          show up reliably, keep things organized, and do the unglamorous parts of the job well.
+        </p>
+      </section>
+
+      <section class="block" id="experience">
+        <div class="section-label">Experience</div>
+
+        <div class="entry">
+          <div class="entry-head">
+            <span class="entry-title">Comprehensive Title</span>
+            <span class="entry-leader"></span>
+            <span class="entry-date">May 2026 – Present</span>
+          </div>
+          <div class="entry-sub">Intern &middot; Cincinnati, OH</div>
+          <ul>
+            <li>Prepare and process title insurance policies and supporting documentation for real estate transactions</li>
+            <li>Assist with recording deeds and maintaining accurate property transaction records</li>
+            <li>Support closing packages and day-to-day document management for the office</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <div class="entry-head">
+            <span class="entry-title">Lutmer Farms</span>
+            <span class="entry-leader"></span>
+            <span class="entry-date">May 2022 – Sept 2022</span>
+          </div>
+          <div class="entry-sub">Farm Hand &middot; Lebanon, OH</div>
+          <ul>
+            <li>Oversaw livestock care, including feeding routines and general management of cows and chickens</li>
+            <li>Operated and maintained heavy machinery for hay and straw baling operations</li>
+            <li>Troubleshot and repaired equipment in the field to minimize downtime</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <div class="entry-head">
+            <span class="entry-title">Comprehensive Title</span>
+            <span class="entry-leader"></span>
+            <span class="entry-date">Mar 2021 – May 2021</span>
+          </div>
+          <div class="entry-sub">Intern &middot; Cincinnati, OH</div>
+          <ul>
+            <li>Transcribed and replicated company documents to maintain precise records</li>
+            <li>Reviewed insurance policies and title exams to ensure accuracy and compliance with company standards</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <div class="entry-head">
+            <span class="entry-title">Papa John's</span>
+            <span class="entry-leader"></span>
+            <span class="entry-date">Oct 2020 – May 2021</span>
+          </div>
+          <div class="entry-sub">Customer Service Representative &middot; Cincinnati, OH</div>
+          <ul>
+            <li>Answered high-volume phone calls and processed carryout orders in a fast-paced environment</li>
+            <li>Managed payment processing and order accuracy during high-demand conditions</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="block" id="education">
+        <div class="section-label">Education</div>
+
+        <div class="entry">
+          <div class="entry-head">
+            <span class="entry-title">Xavier University</span>
+            <span class="entry-leader"></span>
+            <span class="entry-date">Aug 2024 – Present</span>
+          </div>
+          <div class="entry-sub">B.S., Business Management &middot; Cincinnati, OH &middot; Expected Spring 2027</div>
+          <div class="entry-meta">GPA: 3.2</div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-head">
+            <span class="entry-title">Colorado State University</span>
+            <span class="entry-leader"></span>
+            <span class="entry-date">Aug 2021 – May 2024</span>
+          </div>
+          <div class="entry-sub">B.S., Business (transferred) &middot; Fort Collins, CO</div>
+          <div class="entry-meta">GPA: 3.2 &middot; Coursework: Marketing, Organizational Management, Project Management, Leadership</div>
+        </div>
+      </section>
+
+      <section class="block" id="projects">
+        <div class="section-label">Projects</div>
+
+        <div class="entry">
+          <div class="entry-head">
+            <span class="entry-title">Days Pharmacy Consulting Project</span>
+            <span class="entry-leader"></span>
+            <span class="entry-date">April 2025</span>
+          </div>
+          <ul>
+            <li>Selected as the winning team out of 57 teams and 5 finalists</li>
+            <li>Worked with a team to build an executive summary of recommendations to help expand Days Pharmacy's reach</li>
+            <li>Presented findings directly to Days Pharmacy's owners, board members, and employees</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="block">
+        <div class="section-label">What I Value</div>
+        <div class="values-grid">
+          <div class="value-card">
+            <h3>Honesty</h3>
+            <p>Saying the real thing, even when it's a little uncomfortable.</p>
+          </div>
+          <div class="value-card">
+            <h3>Depth over noise</h3>
+            <p>Fewer, better conversations. Fewer, better projects.</p>
+          </div>
+          <div class="value-card">
+            <h3>Follow-through</h3>
+            <p>Small, consistent effort beats a burst of motivation that doesn't last.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="block">
+        <div class="section-label">Outside of Work</div>
+        <ul class="outside-list">
+          <li>Long walks where I end up thinking through problems I wasn't planning to</li>
+          <li>Music as a mood-shifter — different playlists for focus, reflection, and downtime</li>
+          <li>Time on my family's farm, which is where a lot of my work ethic actually comes from</li>
+        </ul>
+      </section>
+
+      <footer class="contact" id="contact">
+        <div class="cta">
+          <h3>Get in touch</h3>
+          <p>Open to internships and conversations about real estate, business, or anything in between.</p>
+          <a class="contact-link" href="mailto:cejohnson124@gmail.com">Email me</a>
+        </div>
+        <div class="updated">Last updated September 2026</div>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
