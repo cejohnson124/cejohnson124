@@ -1,12 +1,11 @@
 ## Hi there 👋
-
+This is my first attempt at having AI make me a website and then on my own getting the index and uploading it to github to have a working link in my repository
 
 <!--
 **cejohnson124/cejohnson124** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
 Here are some ideas to get you started:
 
-This is my first attempt at having AI make me a website and then on my own getting the index and uploading it to github to have a working link in my repository
 - 🌱 I’m currently learning ...
 - 👯 I’m looking to collaborate on ...
 - 🤔 I’m looking for help with ...
