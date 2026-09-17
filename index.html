@@ -49,6 +49,25 @@
 
   a { color: inherit; }
 
+  .top-banner {
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(120deg, var(--accent), var(--accent-gold), var(--accent));
+    background-size: 200% 100%;
+    animation: bannerShift 10s ease-in-out infinite;
+    color: #fff8f0;
+    text-align: center;
+    font-family: "IBM Plex Serif", serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.01em;
+    padding: 0.7rem 1rem;
+  }
+
+  @keyframes bannerShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
   .leaves {
     position: fixed;
     inset: 0;
@@ -404,7 +423,7 @@
     border-radius: 6px;
     box-shadow: 0 18px 34px rgba(46, 30, 20, 0.14);
     padding: 2.25rem 2.5rem 2.5rem;
-    max-width: 620px;
+    max-width: 700px;
     width: 100%;
     transform: rotate(-0.6deg);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -452,37 +471,20 @@
 
   .print-btn:hover { filter: brightness(1.12); }
 
-  .resume-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-  }
-
-  .resume-grid h4 {
+  .resume-body h4 {
     text-transform: uppercase;
     letter-spacing: 0.08em;
     font-size: 0.72rem;
     color: var(--accent);
     font-weight: 600;
-    margin: 0 0 0.75rem;
+    margin: 2rem 0 1.1rem;
   }
 
-  .resume-item { margin-bottom: 1rem; }
-  .resume-item:last-child { margin-bottom: 0; }
+  .resume-body h4:first-child { margin-top: 0; }
 
-  .resume-item .title {
-    font-size: 0.92rem;
-    font-weight: 600;
-    color: var(--ink);
-  }
-
-  .resume-item .meta {
-    font-size: 0.8rem;
-    color: var(--muted);
-  }
+  .resume-body .entry { margin-bottom: 1.6rem; }
 
   @media (max-width: 640px) {
-    .resume-grid { grid-template-columns: 1fr; }
     .resume-card { padding: 1.75rem 1.5rem 2rem; }
   }
 
@@ -501,10 +503,12 @@
     body { animation: none; }
     .leaf { animation: none; display: none; }
     .reveal { opacity: 1; transform: none; transition: none; }
+    .top-banner { animation: none; }
   }
 </style>
 </head>
 <body>
+  <div class="top-banner">🍁 Real estate by day, golf course by weekend, always chasing good music 🎶</div>
   <div class="leaves" aria-hidden="true">
     <span class="leaf" style="left:6%; font-size:1.3rem; animation-duration:16s; animation-delay:0s;">🍁</span>
     <span class="leaf" style="left:22%; font-size:1rem; animation-duration:21s; animation-delay:-4s;">🍂</span>
@@ -521,9 +525,6 @@
 
       <nav>
         <a href="#about">About</a>
-        <a href="#experience">Experience</a>
-        <a href="#education">Education</a>
-        <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
         <a href="#resume">Resume</a>
       </nav>
@@ -558,105 +559,6 @@
           farm, and customer service — different environments, but the same habits carried through:
           show up reliably, keep things organized, and do the unglamorous parts of the job well.
         </p>
-      </section>
-
-      <section class="block reveal" id="experience">
-        <div class="section-label">Experience</div>
-
-        <div class="entry">
-          <div class="entry-head">
-            <span class="entry-title">Comprehensive Title</span>
-            <span class="entry-leader"></span>
-            <span class="entry-date">May 2026 – Present</span>
-          </div>
-          <div class="entry-sub">Intern &middot; Cincinnati, OH</div>
-          <ul>
-            <li>Prepare and process title insurance policies and supporting documentation for real estate transactions</li>
-            <li>Assist with recording deeds and maintaining accurate property transaction records</li>
-            <li>Support closing packages and day-to-day document management for the office</li>
-          </ul>
-        </div>
-
-        <div class="entry">
-          <div class="entry-head">
-            <span class="entry-title">Lutmer Farms</span>
-            <span class="entry-leader"></span>
-            <span class="entry-date">May 2022 – Sept 2022</span>
-          </div>
-          <div class="entry-sub">Farm Hand &middot; Lebanon, OH</div>
-          <ul>
-            <li>Oversaw livestock care, including feeding routines and general management of cows and chickens</li>
-            <li>Operated and maintained heavy machinery for hay and straw baling operations</li>
-            <li>Troubleshot and repaired equipment in the field to minimize downtime</li>
-          </ul>
-        </div>
-
-        <div class="entry">
-          <div class="entry-head">
-            <span class="entry-title">Comprehensive Title</span>
-            <span class="entry-leader"></span>
-            <span class="entry-date">Mar 2021 – May 2021</span>
-          </div>
-          <div class="entry-sub">Intern &middot; Cincinnati, OH</div>
-          <ul>
-            <li>Transcribed and replicated company documents to maintain precise records</li>
-            <li>Reviewed insurance policies and title exams to ensure accuracy and compliance with company standards</li>
-          </ul>
-        </div>
-
-        <div class="entry">
-          <div class="entry-head">
-            <span class="entry-title">Papa John's</span>
-            <span class="entry-leader"></span>
-            <span class="entry-date">Oct 2020 – May 2021</span>
-          </div>
-          <div class="entry-sub">Customer Service Representative &middot; Cincinnati, OH</div>
-          <ul>
-            <li>Answered high-volume phone calls and processed carryout orders in a fast-paced environment</li>
-            <li>Managed payment processing and order accuracy during high-demand conditions</li>
-          </ul>
-        </div>
-      </section>
-
-      <section class="block reveal" id="education">
-        <div class="section-label">Education</div>
-
-        <div class="entry">
-          <div class="entry-head">
-            <span class="entry-title">Xavier University</span>
-            <span class="entry-leader"></span>
-            <span class="entry-date">Aug 2024 – Present</span>
-          </div>
-          <div class="entry-sub">B.S., Business Management &middot; Cincinnati, OH &middot; Expected Spring 2027</div>
-          <div class="entry-meta">GPA: 3.2</div>
-        </div>
-
-        <div class="entry">
-          <div class="entry-head">
-            <span class="entry-title">Colorado State University</span>
-            <span class="entry-leader"></span>
-            <span class="entry-date">Aug 2021 – May 2024</span>
-          </div>
-          <div class="entry-sub">B.S., Business (transferred) &middot; Fort Collins, CO</div>
-          <div class="entry-meta">GPA: 3.2 &middot; Coursework: Marketing, Organizational Management, Project Management, Leadership</div>
-        </div>
-      </section>
-
-      <section class="block reveal" id="projects">
-        <div class="section-label">Projects</div>
-
-        <div class="entry">
-          <div class="entry-head">
-            <span class="entry-title">Days Pharmacy Consulting Project</span>
-            <span class="entry-leader"></span>
-            <span class="entry-date">April 2025</span>
-          </div>
-          <ul>
-            <li>Selected as the winning team out of 57 teams and 5 finalists</li>
-            <li>Worked with a team to build an executive summary of recommendations to help expand Days Pharmacy's reach</li>
-            <li>Presented findings directly to Days Pharmacy's owners, board members, and employees</li>
-          </ul>
-        </div>
       </section>
 
       <section class="block reveal">
@@ -696,7 +598,7 @@
       </footer>
 
       <section class="resume-attachment reveal" id="resume">
-        <div style="width:100%; max-width:620px;">
+        <div style="width:100%; max-width:700px;">
           <div class="resume-pin">📎</div>
           <div class="resume-card">
             <div class="resume-card-head">
@@ -706,41 +608,98 @@
               </div>
               <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
             </div>
-            <div class="resume-grid">
-              <div>
-                <h4>Experience</h4>
-                <div class="resume-item">
-                  <div class="title">Comprehensive Title &mdash; Intern</div>
-                  <div class="meta">May 2026 – Present</div>
+            <div class="resume-body">
+              <h4>Experience</h4>
+
+              <div class="entry">
+                <div class="entry-head">
+                  <span class="entry-title">Comprehensive Title</span>
+                  <span class="entry-leader"></span>
+                  <span class="entry-date">May 2026 – Present</span>
                 </div>
-                <div class="resume-item">
-                  <div class="title">Lutmer Farms &mdash; Farm Hand</div>
-                  <div class="meta">May 2022 – Sept 2022</div>
-                </div>
-                <div class="resume-item">
-                  <div class="title">Comprehensive Title &mdash; Intern</div>
-                  <div class="meta">Mar 2021 – May 2021</div>
-                </div>
-                <div class="resume-item">
-                  <div class="title">Papa John's &mdash; Customer Service Rep</div>
-                  <div class="meta">Oct 2020 – May 2021</div>
-                </div>
+                <div class="entry-sub">Intern &middot; Cincinnati, OH</div>
+                <ul>
+                  <li>Prepare and process title insurance policies and supporting documentation for real estate transactions</li>
+                  <li>Assist with recording deeds and maintaining accurate property transaction records</li>
+                  <li>Support closing packages and day-to-day document management for the office</li>
+                </ul>
               </div>
-              <div>
-                <h4>Education</h4>
-                <div class="resume-item">
-                  <div class="title">Xavier University</div>
-                  <div class="meta">B.S., Business Management &middot; Expected Spring 2027</div>
+
+              <div class="entry">
+                <div class="entry-head">
+                  <span class="entry-title">Lutmer Farms</span>
+                  <span class="entry-leader"></span>
+                  <span class="entry-date">May 2022 – Sept 2022</span>
                 </div>
-                <div class="resume-item">
-                  <div class="title">Colorado State University</div>
-                  <div class="meta">B.S., Business (transferred) &middot; 2021–2024</div>
+                <div class="entry-sub">Farm Hand &middot; Lebanon, OH</div>
+                <ul>
+                  <li>Oversaw livestock care, including feeding routines and general management of cows and chickens</li>
+                  <li>Operated and maintained heavy machinery for hay and straw baling operations</li>
+                  <li>Troubleshot and repaired equipment in the field to minimize downtime</li>
+                </ul>
+              </div>
+
+              <div class="entry">
+                <div class="entry-head">
+                  <span class="entry-title">Comprehensive Title</span>
+                  <span class="entry-leader"></span>
+                  <span class="entry-date">Mar 2021 – May 2021</span>
                 </div>
-                <h4 style="margin-top:1.5rem;">Recognition</h4>
-                <div class="resume-item">
-                  <div class="title">Days Pharmacy Consulting Project</div>
-                  <div class="meta">Winning team, 57 teams &middot; April 2025</div>
+                <div class="entry-sub">Intern &middot; Cincinnati, OH</div>
+                <ul>
+                  <li>Transcribed and replicated company documents to maintain precise records</li>
+                  <li>Reviewed insurance policies and title exams to ensure accuracy and compliance with company standards</li>
+                </ul>
+              </div>
+
+              <div class="entry">
+                <div class="entry-head">
+                  <span class="entry-title">Papa John's</span>
+                  <span class="entry-leader"></span>
+                  <span class="entry-date">Oct 2020 – May 2021</span>
                 </div>
+                <div class="entry-sub">Customer Service Representative &middot; Cincinnati, OH</div>
+                <ul>
+                  <li>Answered high-volume phone calls and processed carryout orders in a fast-paced environment</li>
+                  <li>Managed payment processing and order accuracy during high-demand conditions</li>
+                </ul>
+              </div>
+
+              <h4>Education</h4>
+
+              <div class="entry">
+                <div class="entry-head">
+                  <span class="entry-title">Xavier University</span>
+                  <span class="entry-leader"></span>
+                  <span class="entry-date">Aug 2024 – Present</span>
+                </div>
+                <div class="entry-sub">B.S., Business Management &middot; Cincinnati, OH &middot; Expected Spring 2027</div>
+                <div class="entry-meta">GPA: 3.2</div>
+              </div>
+
+              <div class="entry">
+                <div class="entry-head">
+                  <span class="entry-title">Colorado State University</span>
+                  <span class="entry-leader"></span>
+                  <span class="entry-date">Aug 2021 – May 2024</span>
+                </div>
+                <div class="entry-sub">B.S., Business (transferred) &middot; Fort Collins, CO</div>
+                <div class="entry-meta">GPA: 3.2 &middot; Coursework: Marketing, Organizational Management, Project Management, Leadership</div>
+              </div>
+
+              <h4>Projects</h4>
+
+              <div class="entry">
+                <div class="entry-head">
+                  <span class="entry-title">Days Pharmacy Consulting Project</span>
+                  <span class="entry-leader"></span>
+                  <span class="entry-date">April 2025</span>
+                </div>
+                <ul>
+                  <li>Selected as the winning team out of 57 teams and 5 finalists</li>
+                  <li>Worked with a team to build an executive summary of recommendations to help expand Days Pharmacy's reach</li>
+                  <li>Presented findings directly to Days Pharmacy's owners, board members, and employees</li>
+                </ul>
               </div>
             </div>
           </div>
