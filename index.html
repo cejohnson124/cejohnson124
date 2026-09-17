@@ -9,17 +9,18 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --paper: #f6f4ef;
-    --surface: #ffffff;
-    --ink: #1d2430;
-    --ink-soft: #333c49;
-    --muted: #6b7280;
-    --rule: #ddd7c8;
-    --accent: #7c2a3a;
-    --accent-soft: #f1e3e0;
-    --sidebar: #1d2430;
-    --sidebar-text: #e9e7e0;
-    --sidebar-muted: #9aa1ad;
+    --paper: #fbf1e4;
+    --surface: #fffaf2;
+    --ink: #2e1e14;
+    --ink-soft: #4b3a2c;
+    --muted: #8a715c;
+    --rule: #e4cda8;
+    --accent: #c1502e;
+    --accent-gold: #d99a3d;
+    --accent-soft: #f6ddbd;
+    --sidebar: #2e1710;
+    --sidebar-text: #f6ead8;
+    --sidebar-muted: #cdae8d;
   }
 
   * { box-sizing: border-box; }
@@ -29,23 +30,59 @@
   body {
     margin: 0;
     background: var(--paper);
+    background-image:
+      radial-gradient(ellipse 60% 45% at 12% 8%, rgba(217, 154, 61, 0.16), transparent 60%),
+      radial-gradient(ellipse 55% 45% at 88% 22%, rgba(193, 80, 46, 0.14), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 50% 95%, rgba(153, 99, 41, 0.12), transparent 65%);
+    background-size: 200% 200%, 200% 200%, 200% 200%;
+    animation: driftGlow 40s ease-in-out infinite;
     color: var(--ink);
     font-family: "IBM Plex Sans", system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
 
+  @keyframes driftGlow {
+    0%   { background-position: 0% 0%, 100% 0%, 50% 100%; }
+    50%  { background-position: 20% 20%, 80% 30%, 60% 80%; }
+    100% { background-position: 0% 0%, 100% 0%, 50% 100%; }
+  }
+
   a { color: inherit; }
+
+  .leaves {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .leaf {
+    position: absolute;
+    top: -10%;
+    opacity: 0.5;
+    animation: fall linear infinite;
+    will-change: transform;
+  }
+
+  @keyframes fall {
+    0%   { transform: translateY(-10vh) translateX(0) rotate(0deg); }
+    50%  { transform: translateY(50vh) translateX(30px) rotate(180deg); }
+    100% { transform: translateY(110vh) translateX(-20px) rotate(360deg); }
+  }
 
   .layout {
     display: grid;
     grid-template-columns: 300px 1fr;
     min-height: 100vh;
+    position: relative;
+    z-index: 1;
   }
 
   /* ---------- Sidebar ---------- */
 
   .sidebar {
-    background: var(--sidebar);
+    background: linear-gradient(165deg, #3a1f12, #5c2c17 65%, #6b3419);
     color: var(--sidebar-text);
     padding: 3rem 2.25rem;
     position: sticky;
@@ -329,12 +366,153 @@
     .entry-leader { display: none; }
   }
 
+  /* ---------- Scroll reveal ---------- */
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ---------- Resume attachment ---------- */
+
+  .resume-attachment {
+    margin-top: 5rem;
+    padding-top: 1rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .resume-pin {
+    text-align: center;
+    margin-bottom: -0.6rem;
+    font-size: 1.6rem;
+    transform: rotate(-18deg);
+    filter: drop-shadow(0 3px 3px rgba(46, 30, 20, 0.25));
+    position: relative;
+    z-index: 2;
+  }
+
+  .resume-card {
+    background: var(--surface);
+    border: 1px dashed var(--rule);
+    border-radius: 6px;
+    box-shadow: 0 18px 34px rgba(46, 30, 20, 0.14);
+    padding: 2.25rem 2.5rem 2.5rem;
+    max-width: 620px;
+    width: 100%;
+    transform: rotate(-0.6deg);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .resume-card:hover {
+    transform: rotate(0deg);
+    box-shadow: 0 22px 40px rgba(46, 30, 20, 0.2);
+  }
+
+  .resume-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .resume-card-head h3 {
+    font-family: "IBM Plex Serif", serif;
+    font-weight: 500;
+    font-size: 1.25rem;
+    margin: 0 0 0.3rem;
+  }
+
+  .resume-card-head p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .print-btn {
+    background: var(--accent);
+    color: #fff8f0;
+    border: none;
+    padding: 0.55rem 1.1rem;
+    border-radius: 3px;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: filter 0.15s ease;
+  }
+
+  .print-btn:hover { filter: brightness(1.12); }
+
+  .resume-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .resume-grid h4 {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.72rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin: 0 0 0.75rem;
+  }
+
+  .resume-item { margin-bottom: 1rem; }
+  .resume-item:last-child { margin-bottom: 0; }
+
+  .resume-item .title {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .resume-item .meta {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  @media (max-width: 640px) {
+    .resume-grid { grid-template-columns: 1fr; }
+    .resume-card { padding: 1.75rem 1.5rem 2rem; }
+  }
+
+  @media print {
+    body * { visibility: hidden; }
+    .resume-attachment, .resume-attachment * { visibility: visible; }
+    .resume-attachment {
+      position: absolute; top: 0; left: 0; margin: 0; padding: 0; width: 100%;
+    }
+    .resume-card { box-shadow: none; border: none; transform: none; max-width: 100%; }
+    .resume-pin, .print-btn { display: none; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
+    body { animation: none; }
+    .leaf { animation: none; display: none; }
+    .reveal { opacity: 1; transform: none; transition: none; }
   }
 </style>
 </head>
 <body>
+  <div class="leaves" aria-hidden="true">
+    <span class="leaf" style="left:6%; font-size:1.3rem; animation-duration:16s; animation-delay:0s;">🍁</span>
+    <span class="leaf" style="left:22%; font-size:1rem; animation-duration:21s; animation-delay:-4s;">🍂</span>
+    <span class="leaf" style="left:41%; font-size:1.5rem; animation-duration:18s; animation-delay:-9s;">🍁</span>
+    <span class="leaf" style="left:63%; font-size:1.1rem; animation-duration:24s; animation-delay:-2s;">🍂</span>
+    <span class="leaf" style="left:79%; font-size:1.4rem; animation-duration:19s; animation-delay:-13s;">🍁</span>
+    <span class="leaf" style="left:91%; font-size:1rem; animation-duration:22s; animation-delay:-7s;">🍂</span>
+  </div>
   <div class="layout">
     <aside class="sidebar">
       <div class="monogram">CJ</div>
@@ -347,6 +525,7 @@
         <a href="#education">Education</a>
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
+        <a href="#resume">Resume</a>
       </nav>
 
       <div class="sidebar-contact">
@@ -366,7 +545,7 @@
     </aside>
 
     <main>
-      <section class="intro" id="about">
+      <section class="intro reveal" id="about">
         <h2>About</h2>
         <p>
           I'm a business student at Xavier University, currently working toward a degree in Business
@@ -381,7 +560,7 @@
         </p>
       </section>
 
-      <section class="block" id="experience">
+      <section class="block reveal" id="experience">
         <div class="section-label">Experience</div>
 
         <div class="entry">
@@ -439,7 +618,7 @@
         </div>
       </section>
 
-      <section class="block" id="education">
+      <section class="block reveal" id="education">
         <div class="section-label">Education</div>
 
         <div class="entry">
@@ -463,7 +642,7 @@
         </div>
       </section>
 
-      <section class="block" id="projects">
+      <section class="block reveal" id="projects">
         <div class="section-label">Projects</div>
 
         <div class="entry">
@@ -480,7 +659,7 @@
         </div>
       </section>
 
-      <section class="block">
+      <section class="block reveal">
         <div class="section-label">What I Value</div>
         <div class="values-grid">
           <div class="value-card">
@@ -498,7 +677,7 @@
         </div>
       </section>
 
-      <section class="block">
+      <section class="block reveal">
         <div class="section-label">Outside of Work</div>
         <ul class="outside-list">
           <li>Can  find me on the golf course perfecting my swing</li>
@@ -507,7 +686,7 @@
         </ul>
       </section>
 
-      <footer class="contact" id="contact">
+      <footer class="contact reveal" id="contact">
         <div class="cta">
           <h3>Get in touch</h3>
           <p>Open to Full-time opportunities and conversations about real estate, business, or anything in between.</p>
@@ -515,7 +694,76 @@
         </div>
         <div class="updated">Last updated September 2026</div>
       </footer>
+
+      <section class="resume-attachment reveal" id="resume">
+        <div style="width:100%; max-width:620px;">
+          <div class="resume-pin">📎</div>
+          <div class="resume-card">
+            <div class="resume-card-head">
+              <div>
+                <h3>Charlie Johnson &mdash; Resume</h3>
+                <p>Cincinnati, OH &middot; cejohnson124@gmail.com</p>
+              </div>
+              <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+            </div>
+            <div class="resume-grid">
+              <div>
+                <h4>Experience</h4>
+                <div class="resume-item">
+                  <div class="title">Comprehensive Title &mdash; Intern</div>
+                  <div class="meta">May 2026 – Present</div>
+                </div>
+                <div class="resume-item">
+                  <div class="title">Lutmer Farms &mdash; Farm Hand</div>
+                  <div class="meta">May 2022 – Sept 2022</div>
+                </div>
+                <div class="resume-item">
+                  <div class="title">Comprehensive Title &mdash; Intern</div>
+                  <div class="meta">Mar 2021 – May 2021</div>
+                </div>
+                <div class="resume-item">
+                  <div class="title">Papa John's &mdash; Customer Service Rep</div>
+                  <div class="meta">Oct 2020 – May 2021</div>
+                </div>
+              </div>
+              <div>
+                <h4>Education</h4>
+                <div class="resume-item">
+                  <div class="title">Xavier University</div>
+                  <div class="meta">B.S., Business Management &middot; Expected Spring 2027</div>
+                </div>
+                <div class="resume-item">
+                  <div class="title">Colorado State University</div>
+                  <div class="meta">B.S., Business (transferred) &middot; 2021–2024</div>
+                </div>
+                <h4 style="margin-top:1.5rem;">Recognition</h4>
+                <div class="resume-item">
+                  <div class="title">Days Pharmacy Consulting Project</div>
+                  <div class="meta">Winning team, 57 teams &middot; April 2025</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   </div>
+
+  <script>
+    (function () {
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || !('IntersectionObserver' in window)) return;
+      var targets = document.querySelectorAll('.reveal');
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      targets.forEach(function (t) { io.observe(t); });
+    })();
+  </script>
 </body>
 </html>
