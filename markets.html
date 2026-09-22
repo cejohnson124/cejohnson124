@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Charlie Johnson — Financial Markets</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f7efe7;
+    --surface: #fffaf5;
+    --ink: #2b1c12;
+    --ink-soft: #5c3c2c;
+    --muted: #8f7364;
+    --rule: #ddc6b8;
+    --accent: #742f14;
+    --accent-gold: #fc9c44;
+    --accent-soft: #fbdfb8;
+    --accent-blue: #5a84ac;
+    --sidebar: #5c3c2c;
+    --sidebar-text: #f6ead8;
+    --sidebar-muted: #d9c3b5;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse 60% 45% at 12% 8%, rgba(252, 156, 68, 0.16), transparent 60%),
+      radial-gradient(ellipse 55% 45% at 88% 22%, rgba(116, 47, 20, 0.14), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 50% 95%, rgba(90, 132, 172, 0.12), transparent 65%);
+    background-position: 0% 0%, 100% 0%, 50% 100%;
+    color: var(--ink);
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  .bg-theme {
+    position: fixed;
+    inset: -14%;
+    background-image: url('Assets/background-theme.jpg');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.18;
+    pointer-events: none;
+    z-index: 0;
+    transform: scale(1.15);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bg-theme { transition: none; transform: scale(1.15); }
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ---------- Sidebar ---------- */
+
+  .sidebar {
+    background-image: url('Assets/background-theme-sidebar.png'), linear-gradient(165deg, #4a2a1a, #5c3c2c 65%, #742f14);
+    background-size: cover, cover;
+    background-position: center, center;
+    background-repeat: no-repeat, no-repeat;
+    color: var(--sidebar-text);
+    padding: 3rem 2.25rem;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .monogram {
+    width: 140px;
+    height: 140px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(233, 231, 224, 0.35);
+    overflow: hidden;
+    background: var(--accent-soft);
+    margin-bottom: 1.75rem;
+  }
+
+  .monogram img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .sidebar h1 {
+    font-family: "IBM Plex Serif", serif;
+    font-weight: 500;
+    font-size: 1.7rem;
+    line-height: 1.25;
+    margin: 0 0 0.4rem;
+  }
+
+  .sidebar .role {
+    color: var(--sidebar-muted);
+    font-size: 0.92rem;
+    line-height: 1.55;
+    margin: 0 0 1.75rem;
+    max-width: 20ch;
+  }
+
+  .sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    margin-bottom: auto;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(233, 231, 224, 0.15);
+  }
+
+  .sidebar nav a {
+    text-decoration: none;
+    color: var(--sidebar-muted);
+    font-size: 0.88rem;
+    padding: 0.6rem 0 0.1rem;
+    border-bottom: 2px solid transparent;
+    width: fit-content;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .sidebar nav a:hover,
+  .sidebar nav a:focus-visible {
+    color: var(--sidebar-text);
+    border-color: var(--accent);
+  }
+
+  .sidebar nav a.active {
+    color: var(--sidebar-text);
+    border-color: var(--accent-gold);
+  }
+
+  .sidebar-contact {
+    padding-top: 1.75rem;
+    border-top: 1px solid rgba(233, 231, 224, 0.15);
+    font-size: 0.85rem;
+  }
+
+  .sidebar-contact .label {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.68rem;
+    color: var(--sidebar-muted);
+    margin-bottom: 0.35rem;
+  }
+
+  .sidebar-contact .row {
+    margin-bottom: 1rem;
+  }
+
+  .sidebar-contact a {
+    text-decoration: none;
+    color: var(--sidebar-text);
+    word-break: break-word;
+  }
+
+  .sidebar-contact a:hover { color: var(--accent-blue); }
+
+  /* ---------- Main content ---------- */
+
+  main {
+    padding: 4.5rem 4rem 5rem;
+    max-width: 760px;
+  }
+
+  .section-label {
+    font-family: "Times New Roman", Times, serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.2rem;
+    color: var(--ink);
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 1.6rem;
+  }
+
+  .markets-intro {
+    font-size: 0.92rem;
+    color: var(--muted);
+    margin: 0 0 1.75rem;
+    max-width: 60ch;
+    line-height: 1.6;
+  }
+
+  .markets-card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 0.5rem 1.5rem;
+    box-shadow: 0 12px 26px rgba(46, 30, 20, 0.08);
+  }
+
+  .markets-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .markets-table th,
+  .markets-table td {
+    text-align: left;
+    padding: 0.85rem 0.6rem;
+    border-bottom: 1px solid var(--rule);
+    font-size: 0.92rem;
+  }
+
+  .markets-table tr:last-child td { border-bottom: none; }
+
+  .markets-table th {
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.68rem;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  .markets-table .index-name {
+    font-family: "IBM Plex Serif", serif;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .markets-table .num {
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-soft);
+  }
+
+  .change-pos { color: var(--accent-blue); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .change-neg { color: var(--accent); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .change-flat { color: var(--muted); font-weight: 600; font-variant-numeric: tabular-nums; }
+
+  .markets-note {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-top: 1.75rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .markets-note p { margin: 0 0 0.6rem; }
+  .markets-note p:last-child { margin-bottom: 0; }
+
+  .markets-sources {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 1.5rem;
+  }
+
+  .markets-sources a {
+    color: var(--accent-blue);
+    text-decoration: underline;
+  }
+
+  /* ---------- Responsive ---------- */
+
+  @media (max-width: 860px) {
+    .layout { grid-template-columns: 1fr; }
+    .sidebar {
+      position: relative;
+      height: auto;
+      padding: 2.5rem 1.75rem;
+    }
+    .sidebar nav { flex-direction: row; flex-wrap: wrap; margin-bottom: 1.75rem; gap: 1.2rem; }
+    main { padding: 3rem 1.75rem 4rem; }
+    .markets-card { padding: 0.5rem 1rem; }
+    .markets-table th, .markets-table td { padding: 0.7rem 0.4rem; font-size: 0.85rem; }
+  }
+</style>
+</head>
+<body>
+  <div class="bg-theme" aria-hidden="true"></div>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="monogram"><img src="Assets/headshot-circle.png" alt="Charlie Johnson headshot" /></div>
+      <h1>Charlie Johnson</h1>
+      <p class="role">Business student &amp; real estate professional in training, Cincinnati, Ohio</p>
+
+      <nav>
+        <a href="index.html#about">About</a>
+        <a href="index.html#contact">Contact</a>
+        <a href="resume.html">Resume</a>
+        <a href="markets.html" class="active">Financial Markets</a>
+      </nav>
+
+      <div class="sidebar-contact">
+        <div class="row">
+          <div class="label">Email</div>
+          <a href="mailto:cejohnson124@gmail.com">cejohnson124@gmail.com</a>
+        </div>
+        <div class="row">
+          <div class="label">Location</div>
+          <span>Cincinnati, Ohio</span>
+        </div>
+        <div class="row">
+          <div class="label">Elsewhere</div>
+          <a href="#" aria-label="LinkedIn">LinkedIn</a>
+        </div>
+      </div>
+    </aside>
+
+    <main>
+      <section id="markets">
+        <div class="section-label">Financial Markets</div>
+        <p class="markets-intro">
+          A quick snapshot of the major world indices — a habit I keep up given my interest in real
+          estate and business. Figures below are as of market close on September 22, 2026, unless
+          noted otherwise.
+        </p>
+
+        <div class="markets-card">
+          <table class="markets-table">
+            <thead>
+              <tr>
+                <th>Index</th>
+                <th>Prev. Close</th>
+                <th>Latest</th>
+                <th>Change</th>
+                <th>% Change</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="index-name">S&amp;P 500</td>
+                <td class="num">7,764.70</td>
+                <td class="num">7,764.64</td>
+                <td class="change-flat">&minus;0.06</td>
+                <td class="change-flat">&minus;0.00%</td>
+              </tr>
+              <tr>
+                <td class="index-name">Dow Jones Industrial Average</td>
+                <td class="num">52,048.83</td>
+                <td class="num">51,863.69</td>
+                <td class="change-neg">&minus;185.14</td>
+                <td class="change-neg">&minus;0.36%</td>
+              </tr>
+              <tr>
+                <td class="index-name">Nasdaq Composite</td>
+                <td class="num">27,122.09</td>
+                <td class="num">27,244.28</td>
+                <td class="change-pos">+122.18</td>
+                <td class="change-pos">+0.45%</td>
+              </tr>
+              <tr>
+                <td class="index-name">FTSE 100</td>
+                <td class="num">10,739.01</td>
+                <td class="num">10,708.33</td>
+                <td class="change-neg">&minus;30.68</td>
+                <td class="change-neg">&minus;0.29%</td>
+              </tr>
+              <tr>
+                <td class="index-name">DAX</td>
+                <td class="num">25,575.01</td>
+                <td class="num">25,579.00</td>
+                <td class="change-pos">+3.99</td>
+                <td class="change-pos">+0.02%</td>
+              </tr>
+              <tr>
+                <td class="index-name">Nikkei 225</td>
+                <td class="num">64,136.20</td>
+                <td class="num">65,018.95</td>
+                <td class="change-pos">+882.75</td>
+                <td class="change-pos">+1.38%</td>
+              </tr>
+              <tr>
+                <td class="index-name">Hang Seng</td>
+                <td class="num">25,042.71</td>
+                <td class="num">25,088.00</td>
+                <td class="change-pos">+45.29</td>
+                <td class="change-pos">+0.18%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="markets-note">
+          <p><strong>Nikkei 225:</strong> the Tokyo Stock Exchange has been closed since Monday,
+          September 21 for a run of holidays (Respect for the Aged Day and Autumnal Equinox Day) and
+          doesn't reopen until Thursday, September 24. The figures above are Friday, September 18's
+          close vs. Thursday, September 17's close &mdash; not same-week movement.</p>
+          <p>All other indices reflect their regular close on Tuesday, September 22, 2026, compared
+          with the prior session's close.</p>
+        </div>
+
+        <div class="markets-sources">
+          Sources: <a href="https://finance.yahoo.com/quote/%5EGSPC/" target="_blank" rel="noopener">S&amp;P 500</a>,
+          <a href="https://finance.yahoo.com/quote/%5EDJI/" target="_blank" rel="noopener">Dow Jones</a>, and
+          <a href="https://finance.yahoo.com/quote/%5EIXIC/" target="_blank" rel="noopener">Nasdaq Composite</a>
+          via Yahoo Finance (close ~4:19 PM EDT, Sept 22, 2026);
+          <a href="https://finance.yahoo.com/quote/%5EN225/" target="_blank" rel="noopener">Nikkei 225</a>
+          via Yahoo Finance (close, Sept 18, 2026);
+          <a href="https://tradingeconomics.com/united-kingdom/stock-market" target="_blank" rel="noopener">FTSE 100</a>,
+          <a href="https://tradingeconomics.com/germany/stock-market" target="_blank" rel="noopener">DAX</a>, and
+          <a href="https://tradingeconomics.com/hong-kong/stock-market" target="_blank" rel="noopener">Hang Seng</a>
+          via Trading Economics (Sept 22, 2026).
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var bg = document.querySelector('.bg-theme');
+      if (reduce || !bg) return;
+      var ticking = false;
+      function update() {
+        var y = window.scrollY || window.pageYOffset;
+        var translate = Math.min(y * 0.05, 120);
+        var rotate = Math.min(y * 0.004, 5);
+        bg.style.transform = 'scale(1.15) translateY(-' + translate + 'px) rotate(' + rotate + 'deg)';
+        ticking = false;
+      }
+      window.addEventListener('scroll', function () {
+        if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+      }, { passive: true });
+      update();
+    })();
+  </script>
+</body>
+</html>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Charlie Johnson</title>
+<title>Charlie Johnson — Resume</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,6 +55,10 @@
     transform: scale(1.15);
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     will-change: transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bg-theme { transition: none; transform: scale(1.15); }
   }
 
   .layout {
@@ -141,6 +145,11 @@
     border-color: var(--accent);
   }
 
+  .sidebar nav a.active {
+    color: var(--sidebar-text);
+    border-color: var(--accent-gold);
+  }
+
   .sidebar-contact {
     padding-top: 1.75rem;
     border-top: 1px solid rgba(233, 231, 224, 0.15);
@@ -172,39 +181,6 @@
   main {
     padding: 4.5rem 4rem 5rem;
     max-width: 760px;
-  }
-
-  .intro h2 {
-    font-family: "Times New Roman", Times, serif;
-    font-style: italic;
-    font-weight: 500;
-    font-size: 1.9rem;
-    margin: 0 0 1rem;
-  }
-
-  .intro p {
-    font-size: 1.02rem;
-    line-height: 1.75;
-    color: var(--ink-soft);
-    max-width: 68ch;
-    margin: 0 0 1.1rem;
-  }
-
-  .intro p:last-child { margin-bottom: 0; }
-
-  section.block {
-    margin-top: 3.5rem;
-  }
-
-  .section-label {
-    font-family: "Times New Roman", Times, serif;
-    font-style: italic;
-    font-weight: 500;
-    font-size: 1.2rem;
-    color: var(--ink);
-    padding-bottom: 0.6rem;
-    border-bottom: 1px solid var(--rule);
-    margin-bottom: 1.6rem;
   }
 
   .entry {
@@ -268,112 +244,6 @@
     margin-top: 0.35rem;
   }
 
-  .values-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-  }
-
-  .value-card h3 {
-    font-family: "IBM Plex Serif", serif;
-    font-weight: 500;
-    font-size: 1rem;
-    margin: 0 0 0.4rem;
-    color: var(--ink);
-  }
-
-  .value-card p {
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: var(--muted);
-    margin: 0;
-  }
-
-  .project-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 2rem;
-  }
-
-  .project-text {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .project-logo {
-    flex: 0 0 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--surface);
-    border: 1px solid var(--rule);
-    border-radius: 8px;
-    padding: 1.5rem;
-  }
-
-  .project-logo img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-
-  .outside-list {
-    margin: 0;
-    padding-left: 1.1rem;
-    color: var(--ink-soft);
-  }
-
-  .outside-list li {
-    font-size: 0.95rem;
-    line-height: 1.7;
-    margin-bottom: 0.4rem;
-  }
-
-  footer.contact {
-    margin-top: 4.5rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--rule);
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-  }
-
-  footer.contact .cta h3 {
-    font-family: "Times New Roman", Times, serif;
-    font-style: italic;
-    font-weight: 500;
-    font-size: 1.2rem;
-    margin: 0 0 0.5rem;
-  }
-
-  footer.contact .cta p {
-    font-size: 0.92rem;
-    color: var(--muted);
-    margin: 0;
-    max-width: 40ch;
-  }
-
-  .contact-link {
-    display: inline-block;
-    margin-top: 0.9rem;
-    padding: 0.65rem 1.3rem;
-    background: var(--accent);
-    color: #fdf8f6;
-    text-decoration: none;
-    font-size: 0.9rem;
-    border-radius: 3px;
-    transition: filter 0.15s ease;
-  }
-
-  .contact-link:hover { filter: brightness(1.12); }
-
-  footer.contact .updated {
-    font-size: 0.8rem;
-    color: var(--muted);
-  }
-
   /* ---------- Responsive ---------- */
 
   @media (max-width: 860px) {
@@ -385,30 +255,108 @@
     }
     .sidebar nav { flex-direction: row; flex-wrap: wrap; margin-bottom: 1.75rem; gap: 1.2rem; }
     main { padding: 3rem 1.75rem 4rem; }
-    .values-grid { grid-template-columns: 1fr; }
     .entry-head { gap: 0.3rem; }
     .entry-leader { display: none; }
-    .project-row { flex-direction: column; }
-    .project-logo { flex: 0 0 auto; width: 160px; }
   }
 
-  /* ---------- Scroll reveal ---------- */
+  /* ---------- Resume attachment ---------- */
 
-  .reveal {
-    opacity: 0;
-    transform: translateY(18px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
+  .resume-attachment {
+    margin-top: 0;
+    padding-top: 1rem;
+    display: flex;
+    justify-content: center;
   }
 
-  .reveal.in-view {
-    opacity: 1;
-    transform: translateY(0);
+  .resume-pin {
+    text-align: center;
+    margin-bottom: -0.6rem;
+    font-size: 1.6rem;
+    transform: rotate(-18deg);
+    filter: drop-shadow(0 3px 3px rgba(46, 30, 20, 0.25));
+    position: relative;
+    z-index: 2;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    .reveal { opacity: 1; transform: none; transition: none; }
-    .bg-theme { transition: none; transform: scale(1.15); }
+  .resume-card {
+    background: var(--surface);
+    border: 1px dashed var(--rule);
+    border-radius: 6px;
+    box-shadow: 0 18px 34px rgba(46, 30, 20, 0.14);
+    padding: 2.25rem 2.5rem 2.5rem;
+    max-width: 700px;
+    width: 100%;
+    transform: rotate(-0.6deg);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .resume-card:hover {
+    transform: rotate(0deg);
+    box-shadow: 0 22px 40px rgba(46, 30, 20, 0.2);
+  }
+
+  .resume-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .resume-card-head h3 {
+    font-family: "IBM Plex Serif", serif;
+    font-weight: 500;
+    font-size: 1.25rem;
+    margin: 0 0 0.3rem;
+  }
+
+  .resume-card-head p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .print-btn {
+    background: var(--accent);
+    color: #fff8f0;
+    border: none;
+    padding: 0.55rem 1.1rem;
+    border-radius: 3px;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: filter 0.15s ease;
+  }
+
+  .print-btn:hover { filter: brightness(1.12); }
+
+  .resume-body h4 {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.72rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin: 2rem 0 1.1rem;
+  }
+
+  .resume-body h4:first-child { margin-top: 0; }
+
+  .resume-body .entry { margin-bottom: 1.6rem; }
+
+  @media (max-width: 640px) {
+    .resume-card { padding: 1.75rem 1.5rem 2rem; }
+  }
+
+  @media print {
+    body * { visibility: hidden; }
+    .resume-attachment, .resume-attachment * { visibility: visible; }
+    .resume-attachment {
+      position: absolute; top: 0; left: 0; margin: 0; padding: 0; width: 100%;
+    }
+    .resume-card { box-shadow: none; border: none; transform: none; max-width: 100%; }
+    .resume-pin, .print-btn { display: none; }
   }
 </style>
 </head>
@@ -421,9 +369,9 @@
       <p class="role">Business student &amp; real estate professional in training, Cincinnati, Ohio</p>
 
       <nav>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-        <a href="resume.html">Resume</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#contact">Contact</a>
+        <a href="resume.html" class="active">Resume</a>
         <a href="markets.html">Financial Markets</a>
       </nav>
 
@@ -444,98 +392,103 @@
     </aside>
 
     <main>
-      <section class="intro reveal" id="about">
-        <h2>About</h2>
-        <p>
-          I'm a business student at Xavier University, currently working toward a degree in Business
-          Management with an interest in real estate and project management. I like understanding how
-          things work end to end — whether that's a property closing, a client relationship, or a team
-          project — and I'd rather ask a few good questions than assume I already know the answer.
-        </p>
-        <p>
-          Outside of coursework, I've picked up experience across a title insurance office, a working
-          farm, and customer service — different environments, but the same habits carried through:
-          show up reliably, keep things organized, and do the unglamorous parts of the job well.
-        </p>
-      </section>
-
-      <section class="block reveal">
-        <div class="section-label">What I Value</div>
-        <div class="values-grid">
-          <div class="value-card">
-            <h3>Honesty</h3>
-            <p>Saying the real thing, even when it's a little uncomfortable.</p>
-          </div>
-          <div class="value-card">
-            <h3>Depth over noise</h3>
-            <p>Fewer, better conversations. Fewer, better projects.</p>
-          </div>
-          <div class="value-card">
-            <h3>Follow-through</h3>
-            <p>Consistent effort beats a burst of motivation.</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="block reveal">
-        <div class="section-label">Project Work</div>
-        <div class="project-row">
-          <div class="project-text">
-            <div class="entry">
-              <div class="entry-head">
-                <span class="entry-title">Days Pharmacy Consulting Project</span>
-                <span class="entry-leader"></span>
-                <span class="entry-date">April 2025</span>
+      <section class="resume-attachment" id="resume">
+        <div style="width:100%; max-width:700px;">
+          <div class="resume-pin">📎</div>
+          <div class="resume-card">
+            <div class="resume-card-head">
+              <div>
+                <h3>Charlie Johnson &mdash; Resume</h3>
+                <p>Cincinnati, OH &middot; cejohnson124@gmail.com</p>
               </div>
-              <ul>
-                <li>Selected as the winning team out of 57 teams and 5 finalists</li>
-                <li>Worked with a team to build an executive summary of recommendations to help expand Days Pharmacy's reach</li>
-                <li>Presented findings directly to Days Pharmacy's owners, board members, and employees</li>
-              </ul>
+              <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+            </div>
+            <div class="resume-body">
+              <h4>Experience</h4>
+
+              <div class="entry">
+                <div class="entry-head">
+                  <span class="entry-title">Comprehensive Title</span>
+                  <span class="entry-leader"></span>
+                  <span class="entry-date">May 2026 – Present</span>
+                </div>
+                <div class="entry-sub">Intern &middot; Cincinnati, OH</div>
+                <ul>
+                  <li>Prepare and process title insurance policies and supporting documentation for real estate transactions</li>
+                  <li>Assist with recording deeds and maintaining accurate property transaction records</li>
+                  <li>Support closing packages and day-to-day document management for the office</li>
+                </ul>
+              </div>
+
+              <div class="entry">
+                <div class="entry-head">
+                  <span class="entry-title">Lutmer Farms</span>
+                  <span class="entry-leader"></span>
+                  <span class="entry-date">May 2022 – Sept 2022</span>
+                </div>
+                <div class="entry-sub">Farm Hand &middot; Lebanon, OH</div>
+                <ul>
+                  <li>Oversaw livestock care, including feeding routines and general management of cows and chickens</li>
+                  <li>Operated and maintained heavy machinery for hay and straw baling operations</li>
+                  <li>Troubleshot and repaired equipment in the field to minimize downtime</li>
+                </ul>
+              </div>
+
+              <div class="entry">
+                <div class="entry-head">
+                  <span class="entry-title">Comprehensive Title</span>
+                  <span class="entry-leader"></span>
+                  <span class="entry-date">Mar 2021 – May 2021</span>
+                </div>
+                <div class="entry-sub">Intern &middot; Cincinnati, OH</div>
+                <ul>
+                  <li>Transcribed and replicated company documents to maintain precise records</li>
+                  <li>Reviewed insurance policies and title exams to ensure accuracy and compliance with company standards</li>
+                </ul>
+              </div>
+
+              <div class="entry">
+                <div class="entry-head">
+                  <span class="entry-title">Papa John's</span>
+                  <span class="entry-leader"></span>
+                  <span class="entry-date">Oct 2020 – May 2021</span>
+                </div>
+                <div class="entry-sub">Customer Service Representative &middot; Cincinnati, OH</div>
+                <ul>
+                  <li>Answered high-volume phone calls and processed carryout orders in a fast-paced environment</li>
+                  <li>Managed payment processing and order accuracy during high-demand conditions</li>
+                </ul>
+              </div>
+
+              <h4>Education</h4>
+
+              <div class="entry">
+                <div class="entry-head">
+                  <span class="entry-title">Xavier University</span>
+                  <span class="entry-leader"></span>
+                  <span class="entry-date">Aug 2024 – Present</span>
+                </div>
+                <div class="entry-sub">B.S., Business Management &middot; Cincinnati, OH &middot; Expected Spring 2027</div>
+                <div class="entry-meta">GPA: 3.2</div>
+              </div>
+
+              <div class="entry">
+                <div class="entry-head">
+                  <span class="entry-title">Colorado State University</span>
+                  <span class="entry-leader"></span>
+                  <span class="entry-date">Aug 2021 – May 2024</span>
+                </div>
+                <div class="entry-sub">B.S., Business (transferred) &middot; Fort Collins, CO</div>
+                <div class="entry-meta">GPA: 3.2 &middot; Coursework: Marketing, Organizational Management, Project Management, Leadership</div>
+              </div>
             </div>
           </div>
-          <div class="project-logo">
-            <img src="Assets/days-pharmacy-logo.avif" alt="Day's Pharmacy logo" />
-          </div>
         </div>
       </section>
-
-      <section class="block reveal">
-        <div class="section-label">Outside of Work</div>
-        <ul class="outside-list">
-          <li>Can  find me on the golf course perfecting my swing</li>
-          <li>Music fanatic of all types</li>
-          <li>Spending time with my Family</li>
-        </ul>
-      </section>
-
-      <footer class="contact reveal" id="contact">
-        <div class="cta">
-          <h3>Get in touch</h3>
-          <p>Open to Full-time opportunities and conversations about real estate, business, or anything in between.</p>
-          <a class="contact-link" href="mailto:cejohnson124@gmail.com">Email me</a>
-        </div>
-        <div class="updated">Last updated September 2026</div>
-      </footer>
     </main>
   </div>
 
   <script>
-    (function () {
-      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (reduce || !('IntersectionObserver' in window)) return;
-      var targets = document.querySelectorAll('.reveal');
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('in-view');
-            io.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.12 });
-      targets.forEach(function (t) { io.observe(t); });
-    })();
-
     (function () {
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var bg = document.querySelector('.bg-theme');
